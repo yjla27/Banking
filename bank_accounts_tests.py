@@ -98,8 +98,7 @@ class BankAccounts_Tests(unittest.TestCase):
         # Consider purchasing from non-existent account
 
 
-    def test_sort_accounts(self):
-
+    def test_sort_accounts_by_balance_desc(self):
         sorted_accounts = sort_accounts(self.bank_accounts, 'balance', 'desc')
         self.assertEqual(('6', {'first_name': 'Karishma', 'last_name': 'Jain', 'balance': 6700.19}), sorted_accounts[0])
         self.assertEqual(('1', {'first_name': 'Brandon', 'last_name': 'Krakowsky', 'balance': 6557.59}), sorted_accounts[1])
@@ -107,16 +106,21 @@ class BankAccounts_Tests(unittest.TestCase):
 
         # TODO Write at least 2 additional test cases
         # Consider sorting on last name in asc order
+
+    def test_sort_accounts_by_last_name_asc(self):
         sorted_accounts = sort_accounts(self.bank_accounts, 'last_name', 'asc')
         self.assertEqual(('2', {'first_name': 'Chenyun', 'last_name': 'Wei', 'balance': 4716.89}), sorted_accounts[0])
         self.assertEqual(('1', {'first_name': 'Brandon', 'last_name': 'Krakowsky', 'balance': 6557.59}), sorted_accounts[1])
         self.assertEqual(('6', {'first_name': 'Karishma', 'last_name': 'Jain', 'balance': 6700.19}), sorted_accounts[2])
-        
+
+    def test_sort_accounts_by_account_number_asc(self):
         # Consider sorting on account number in asc order
         sorted_accounts = sort_accounts(self.bank_accounts, 'account_number', 'asc')
         self.assertEqual(('1', {'first_name': 'Brandon', 'last_name': 'Krakowsky', 'balance': 6557.59}), sorted_accounts[0])
         self.assertEqual(('2', {'first_name': 'Chenyun', 'last_name': 'Wei', 'balance': 4716.89}), sorted_accounts[2])
         self.assertEqual(('6', {'first_name': 'Karishma', 'last_name': 'Jain', 'balance': 6700.19}), sorted_accounts[3])
+
+    # write tests for all other sort account scenarios
 
     def test_export_statement(self):
 
@@ -125,6 +129,8 @@ class BankAccounts_Tests(unittest.TestCase):
         export_statement(self.bank_accounts, '5', '5.txt')
 
         # check file exports for correct formatting of the info
+
+
 
 
 if __name__ == '__main__':
