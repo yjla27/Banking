@@ -7,6 +7,9 @@ additional .csv files. Then it will parse and combine all of the data and store 
 
 '''
 
+import ipdb
+
+
 def init_bank_accounts(accounts, deposits, withdrawals):
     '''
     Loads the given 3 files, stores the information for individual bank accounts in a dictionary,
@@ -235,33 +238,42 @@ def sort_accounts(bank_accounts, sort_type, sort_direction):
     account_lst = list(bank_accounts.items())
     print(account_lst)
 
+
+    # sort by account number
+
+    # make the dictionary where the key is the thingy you want to sort by
+
     #if sort_type if valid
     if sort_type in types:
         if sort_type == 'account_number':
-            turn_into_int = []
-            for i in range(len(account_lst)):
-                num = int(account_lst[i][0])
-                turn_into_int.append(num, account_lst[i][1])
+            if sort_direction == 'asc':
+                sorted_accounts = sorted(bank_accounts.keys())
+            else:
+                sorted_accounts = sorted(bank_accounts.keys(), reverse = True)
 
-            #the sorted account with int account_number
-            new_sort_account = sorted(turn_into_int)
+            final_output = []
 
-            turn_into_str = []
-            for i in range(len(account_lst)):
-                string = str(new_sort_account[i][0])
-                turn_into_str.append(string, new_sort_account[i][1])
+            for account_number in sorted_accounts:
+                final_output.append((account_number, bank_accounts[account_number]))
 
-            new_sort_account = turn_into_str
+        elif sort_type == "first_name":
+            first_names = [value["first_name"] for key, value in bank_accounts.items()]
+            if sort_direction == 'asc':
+                first_names = sorted(first_names)
+            elif sort_direction == 'desc':
+                first_names = sorted(first_names, reverse = True)
 
-        else:
-            new_sort_account = sorted(account_lst, key = lambda x:x[1][sort_type])
+            # get the output in order
+            final_output = []
 
-        if sort_direction == 'asc':
-            return new_sort_account
+            for name in first_names:
+                for key, value in bank_accounts.items():
+                    if value["first_name"] == name:
+                        final_output.append((key, value))
+                    break
 
-        else:
-            new_sort_account = new_sort_account[::-1]
-            return new_sort_account
+            # IPDB TRACE IS THE BEST!
+            ipdb.set_trace()
         
     else:
         print("Invalid inputs, please input 'account_number', 'last_name', or 'balance'.")
